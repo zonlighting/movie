@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssv.com.user.UserMapper">
+	<resultMap type="User" id="userMapping">
+		<id column="id_user" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="role" property="role" />
+	</resultMap>
+	<select id="findByUsername" resultMap="userMapping">
+	SELECT * FROM demo.user_tbl where username='${username}';
+	</select>
+	<select id="loadUserById" resultMap="userMapping">
+	SELECT * FROM demo.user_tbl where id_user=${userId};
+	</select>
+	<select id="getAll" resultMap="userMapping">
+	SELECT * FROM demo.user_tbl
+	</select>
+	<insert id="signUp" >
+	INSERT INTO `demo`.`user_tbl` (`username`, `password`, `role`) VALUES ('${loginRequest.username}', '${loginRequest.password}', 'ROLE_ADMIN');
+	</insert>
+	<update id="changePassWord">
+	UPDATE `demo`.`user_tbl` SET `password` = '${changePassDto.newPassWord}' WHERE (`username` = '${changePassDto.userName}');
+	</update>
+</mapper>
